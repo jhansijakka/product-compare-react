@@ -1,6 +1,8 @@
-FROM ubuntu:trusty
+FROM node:14
 LABEL maintainer address "jhansi"
-RUN apt update && apt install apache2 -y
-COPY ./ /var/www/html
-CMD ["apachectl","-D","FOREGROUND"]
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+CMD npm start
 EXPOSE 80
