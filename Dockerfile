@@ -1,4 +1,4 @@
-FROM Node.js 14.21.3
+FROM Node:14.21.3
 LABEL maintainer address "jhansi"
 WORKDIR /usr/src/app
 COPY package*.json ./
