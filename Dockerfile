@@ -7,4 +7,5 @@ COPY . .
 RUN npm run build
 CMD ["node","app"]
 COPY ./ /var/www/html
+CMD ["apachectl","-D","FOREGROUND"]
 EXPOSE 8000
