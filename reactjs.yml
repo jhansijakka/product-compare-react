@@ -1,0 +1,28 @@
+name : cicd
+on:
+   push:
+     branches:
+       -deploy-to-ec2
+jobs:
+   build:
+       runs-on: ubuntu-latest
+       steps:
+         -name: checkout source
+          uses: actions/checkout@v3
+          -name: login to docker-hub
+          uses: docker login -u $ {{ secrets.jhansi}} -p
+                                $ {{ secrets.jhansi}}
+          -name : build docker image
+          run: docker build -t jhansijakka/reactjs .
+          -name: publish image to docker hub
+          run: docker push jhansijakka/reactjs:latest
+deploy :
+   needs: build
+   runs-on : aws-ec2
+   steps :
+     -name : pull image from docker-hub
+      run : docker pull jhansijakka/reactjs:latest
+      -name : delete all the old containers
+      run: docker rm $(docker ps -a -q) -f
+     -name : run the container
+      run: docker run --name cont1 -d -p 82:80 jhansijakka/reactjs:latest 
